@@ -1,0 +1,13 @@
+#仮想環境
+venv/
+
+#Pythonが自動で作るキャッシュ
+__pycache__/
+*.pyc
+
+#KiCadのバックアップ
+*-backups/
+*.kicad_prl
+fp-info-cache
+\#auto_saved_files#
+~*.lck
