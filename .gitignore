@@ -11,3 +11,4 @@ __pycache__/
 fp-info-cache
 \#auto_saved_files#
 ~*.lck
+.history/
