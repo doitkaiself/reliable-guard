@@ -12,3 +12,6 @@ fp-info-cache
 \#auto_saved_files#
 ~*.lck
 .history/
+
+#設定
+src/config.py

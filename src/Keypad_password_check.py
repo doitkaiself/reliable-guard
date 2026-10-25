@@ -2,15 +2,17 @@
 
 import RPi.GPIO as GPIO
 import time
+import config
 
-
+RedLedPin = 5
+GreenLedPin = 6
 input_value = []
 class Keypad():
     def __init__(self, rowsPins, colsPins, keys):
         self.rowsPins = rowsPins
         self.colsPins = colsPins
         self.keys = keys
-        GPIO.setwarnings(False)
+        GPIO.setwarnings(True)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.rowsPins, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self.colsPins, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -38,8 +40,15 @@ def setup():
             ]
     keypad = Keypad(rowsPins, colsPins, keys)
     last_key_pressed = []
-    
 
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(RedLedPin, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(GreenLedPin, GPIO.OUT, initial=GPIO.LOW)
+
+
+
+
+input_value = []
 
 def loop():
     global keypad, last_key_pressed
@@ -57,11 +66,27 @@ def loop():
 
 
 def check():
-    if input_value == ["4","5","4","5"]:
+    if input_value == config.PASSWORD:
         print("You have entered the correct password!")
+        GreenLedOn()
     else:
         print("Incorrect password. Please try again.")
+        RedLedOn()
     input_value.clear()     
+
+
+def RedLedOn():
+    GPIO.output(RedLedPin, GPIO.HIGH)
+    print("Red LED is ON")
+    time.sleep(2)
+    GPIO.output(RedLedPin, GPIO.LOW)
+
+
+def GreenLedOn():
+    GPIO.output(GreenLedPin, GPIO.HIGH)
+    print("Green LED is ON")
+    time.sleep(2)
+    GPIO.output(GreenLedPin, GPIO.LOW)
 
 
 def destroy():
